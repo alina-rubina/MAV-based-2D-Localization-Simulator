@@ -1,0 +1,443 @@
+<!doctype html>
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="./graphs3d/graph3d.js"></script>
+<script type="text/javascript" src="./js/vis.js"></script>
+<script type="text/javascript" src="./js/googleAnalytics.js"></script>
+<meta charset="UTF-8">
+<title>UAV Multiuser System </title>
+<script type="text/javascript">
+//google.load("visualization", "1");
+</script>
+<style>
+div #ex1 {
+	display: inline !important;
+    width: 200px;
+    margin: auto;
+    border: 3px solid #73AD21;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="row text-center"><h2> UAV Multiuser Simulation System<br></H2>
+</div>
+
+
+<div class="row text-left">
+<h2><small>Enter the details below</small></h2>
+</div>
+
+</div>
+<div id = "ex1">
+<div class="container">
+<div class="row">
+<div class="col-md-6"  >
+<form class="form-horizontal" role="form">
+<div class="form-group"><label for="simulations" class="col-md-2 control-label">Simulations attempts</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="simulations" name="nofsimulations"value="1">
+</div>
+</div>
+
+<div class="form-group"><label for="nodes" class="col-md-2 control-label">Number of nodes</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="nodes" name="nofnodes"value="100">
+</div>
+</div>
+
+<div class="form-group"><label for="uavno" class="col-md-2 control-label">Number of UAVs</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="uavn" name="nofuav"value="1">
+</div>
+</div>
+
+<div class="form-group"><label for="threshold" class="col-md-2 control-label">Threshold level</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="threshold" name="thresholdl"value="-100">
+</div>
+</div>
+
+<div class="form-group"><label for="stepsize" class="col-md-2 control-label">Step size for UAV</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="stepsz" name="stepsize"value="50">
+</div>
+</div>
+
+<div class="form-group"><label for="stepsize_node" class="col-md-2 control-label">Step size for Node</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="stepsz_node" name="stepsize_node"value="0">
+</div>
+</div>
+
+<div class="form-group"><label for="steps" class="col-md-2 control-label">Number of steps</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="stepsl" name="steps"value="100">
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="form-group"><label for="maxx" class="col-md-6 control-label"><h3><small>The Environment Dimensions</small></h3></label>
+</div>
+
+
+
+<div class="form-group"><label for="maxx" class="col-md-2 control-label">Max_X, Y , Z</label>
+<div class="col-sm-2">
+<input type="text" class="form-control" id="maxx" name="maxx"value="200">
+<input type="text" class="form-control" id="maxy" name="maxy"value="200">
+<input type="text" class="form-control" id="maxz" name="maxz"value="0">
+</div>
+</div>
+
+
+
+<div class="form-group"><label for="maxy" class="col-md-2 control-label">Localization algorithm</label>
+<div class="col-sm-2">
+<select id="localization_method">>
+  <option value="0">Centroid</option>
+  <option value="1">Trilateration 2D</option>
+  <option value="2">Multilateration</option>
+  <option value="3">Weighted centroid</option>
+  <option value="4">Trilateration 3D students,notworking</option>
+  <option value="5">Trilateration 3D 3 point</option>
+  <option value="6">localization_2D_DCE</option>
+  <option value="7">localization_minmaxshrink</option>
+</select>
+</div>
+</div>
+
+<div class="form-group"><label for="maxz" class="col-md-2 control-label">Filter for localization</label>
+<div class="col-sm-2">
+<select id="filtering">>
+  <option value="0">No filter</option>
+  <option value="1">SS filter 3 point</option>
+  <option value="2">Last 3</option>
+  <option value="3">JointClastering</option>
+  <option value="4">Perimeter</option>
+</select>
+</div>
+</div>
+
+<div class="form-group"><label for="maxz" class="col-md-2 control-label">Copter trajectory</label>
+<div class="col-sm-2">
+<select id="trajectory">>
+  <option value="0">Random</option>
+  <option value="1">Circle 2D</option>
+  <option value="2">Triangle 2D</option>
+  <option value="3">not used</option>
+  <option value="4">Double_scan</option>
+  <option value="5">Another_random</option>
+  <option value="6">Hybrid-G 2D</option>
+  <option value="7">Hybrid-circle 2D</option>
+</select>
+</div>
+</div>
+
+</form>
+<div class="col-md-offset-2">
+<button type="submit" id="submit" class="btn btn-primary btn-sm">Submit</button>
+</div>
+</div>
+<div class="col-md-6"><div id="graph">Graph for UAVs</div></div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-md-6"><div id="flygr"></div></div>
+<div class="col-md-6"><div id="dots"></div></div>
+<div class="col-md-6"><div id="ddescription"><table class="table" id="description">
+<div class="col-md-6"><div id="alot"><table class="table" id="summary">
+</table></div></div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-md-6"><div id="dngr"><table class="table" id="ngr">
+</table></div></div>
+<div class="col-md-6"><div id="dcoords"><table class="table" id="coords">
+</table></div></div>
+</div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+//variable declaration
+      var x = new Object();
+(function($){
+$(document).ready(function(){
+//reacting to the submit button click
+jQuery('#submit').click(function(event){
+$.ajax({
+type: 'POST',
+url: 'jstopython.php',
+data: {nofsimulations:$("#simulations").val(),nofnodes:$("#nodes").val(),thresholdl:$("#threshold").val(),
+steps:$("#stepsl").val(),stepsize:$("#stepsz").val(),
+nofuavs:$("#uavn").val(),maxx:$("#maxx").val(),maxy:$("#maxy").val(),maxz:$("#maxz").val(),stepsz_node:$("#stepsz_node").val(),
+localization_method:$("#localization_method").val(),filtering:$("#filtering").val(),trajectory:$("#trajectory").val()},
+dataType: 'json',
+beforeSend: function(){
+$("#graph").html("<h2>Please wait....</h2>");
+$("#dots").html("<h2>Please wait....</h2>");
+$("#flygr").html(" ");
+$("#summary").html("<h2>Please wait....</h2>");
+$("#coords").html(" ");
+$("#ngr").html(" ");
+},
+success: function(json){
+x = json;
+//alert(x);
+//alert(""+json['locnodes'][0]); noflocnodes
+if (x == null) {
+alert("data error happened with carrent config, no result" );
+return 0;
+}
+$("#description").html('<font color="red">Red</font><font color="black"> real position</font></br>'+
+'<font color="blue">Blue</font><font color="black"> localized position</font>');
+
+//Summary table
+$("#summary").html('<caption><h2>Simulation Summary</h2></caption>'+
+'<tbody><tr class="success">'+
+'<td>Localized Nodes:</td>'+
+'<td>'+x["noflocnodes"]+'</td></tr>'+
+'<tr class="success">'+
+'<td>Steps done:</td>'+
+'<td>'+x["steps_done"]+'</td></tr>'+
+'<tr class="danger">'+
+'<td>Average Loc Error:</td>'+
+'<td>'+x["averaglocerrot"]+'</td></tr>'+
+'<tr class="success">'+
+'<td>Full Route Length:</td>'+
+'<td>'+x["totalroutelen"]+'</td></tr>'+
+'<tr class="active">'+
+'<td>The number of UAVs used:</td>'+
+'<td>'+x["accumuavs"]+'</td></tr>'+
+'<tr class="success">'+
+'<td>Average Route Length:</td>'+
+'<td>'+x["avgroutelen"]+'</td></tr>'+
+'</tbody>'
+);
+//Coordinate printing
+$("#coords").append('<caption><h2>UAV Coordinates</h2></caption><tbody>');
+ for(var i=0; i < x["coords"].length; i++)
+ {
+ if(i%2==0)
+ $("#coords").append('<tr class="success"><td>Track of uav:'+x["coords"][i][0]+' Step:'+x["coords"][i][1]+' Coordinates:['+x["coords"][i][2]+']</td></tr>');
+ else
+ $("#coords").append('<tr class="active"><td>Track of uav:'+x["coords"][i][0]+' Step:'+x["coords"][i][1]+' Coordinates:['+x["coords"][i][2]+']</td></tr>');
+ }
+$("#coords").append('</tbody>');//end
+
+//Printing localised and unlocalised at every step
+$("#ngr").append('<caption><h2>Localised with unlocalised neighb.</h2></caption><tbody>');
+ for(var i=0; i < x["locunlocngr"].length; i++)
+ {
+ if(i%2==0)
+ $("#ngr").append('<tr class="success"><td>'+x["locunlocngr"][i][0]+''+x["locunlocngr"][i][1]+'</td></tr>');
+ else
+ $("#ngr").append('<tr class="active"><td>'+x["locunlocngr"][i][0]+''+x["locunlocngr"][i][1]+'</td></tr>');
+ }
+$("#ngr").append('</tbody>');//end
+},
+error: function(xhr, textStatus, errorThrown){
+alert('An error occured! '+xhr.val+" $ "+textStatus+" $ "+errorThrown);
+console.log("error happened");
+console.log('An error occured! '+xhr.val+" $ "+textStatus+" $ "+errorThrown);
+//alert('An error occured! '+xhr.val+" $ "+textStatus+" $ "+errorThrown);
+},
+complete: function(){
+// Set callback to run when API is loaded
+drawVisualization();
+drawDotVisualization();
+drawFlyVisualization();
+},
+timeout: 240000
+});
+
+});//end
+
+});//end of ready
+})(jQuery);
+
+//Define the function for Dot visualization
+
+    // Called when the Visualization API is loaded.
+    function drawDotVisualization() {
+
+	  var data = null;
+      var graph = null;
+      // create the data table.
+      data = new vis.DataSet();
+      // create the animation data
+      for (var i = 0; i < x["locnodes"].length; i++) {
+        data.add({x:x["locnodes"][i][0],y:x["locnodes"][i][1],z:x["locnodes"][i][2],style:1});
+      }
+	  for (var i = 0; i < x["tnodes"].length; i++) {
+        data.add({x:x["tnodes"][i][0],y:x["tnodes"][i][1],z:x["tnodes"][i][2],style:2});
+      }
+	  var max_dim_x = parseInt($( "#maxx" ).val())
+	  var max_dim_y = parseInt($( "#maxy" ).val())
+	  var min_dim_x = -1*parseInt($( "#maxx" ).val())
+	  var min_dim_y = -1*parseInt($( "#maxy" ).val())
+	  var max_dim_z = $( "maxz" ).val()
+	  //var maxx_dim = 300
+      // specify options
+      var options = {
+        width:  '380px',
+        height: '380px',
+        style: 'dot-color',
+        showPerspective: false,
+        showGrid: true,
+		tooltip: true,
+		xMax: max_dim_x,
+		xMin: min_dim_x,
+		yMax: max_dim_y,
+		yMin: min_dim_y,
+		zMin: 0,
+        keepAspectRatio: true,
+        verticalRatio: 1.0,
+        cameraPosition: {
+          horizontal: -0.35,
+          vertical: 0.22,
+          distance: 1.8
+        }
+      };
+
+      // create our graph
+      var container = document.getElementById('dots');
+      graph = new vis.Graph3d(container, data, options);
+    }
+
+
+    // Called when the Visualization API is loaded.
+    function drawVisualization() {
+	  var data = new Array(1);
+      var graph = null;
+      // Create and populate a data table.
+      data[0] = new vis.DataSet();
+     //
+	 for(var f = 0; f < x['tuav'].length; f+=1){
+	 for(var d = 0; d < x['tuav'][f].length; d+=1){
+	  data[0].add({x:x['tuav'][f][d][0],y:x['tuav'][f][d][1],z:x['tuav'][f][d][2],filter:f});
+	}
+	}
+
+	var max_dim_x = parseInt($( "#maxx" ).val())
+	var max_dim_y = parseInt($( "#maxy" ).val())
+	var min_dim_x = -1*parseInt($( "#maxx" ).val())
+	var min_dim_y = -1*parseInt($( "#maxy" ).val())
+      // specify options
+      var options = {
+        width:  '380px',
+        height: '380px',
+        style: 'line',
+		xMax: max_dim_x,
+		xMin: min_dim_x,
+		yMax: max_dim_y,
+		yMin: min_dim_y,
+		zMin: 0,
+		showAnimationControls:true,
+        showPerspective: false,
+        showGrid: true,
+		tooltip: true,
+        keepAspectRatio: true,
+        verticalRatio: 1.0,
+		cameraPosition: {
+          horizontal: -0.35,
+          vertical: 0.22,
+          distance: 1.8
+		  }
+      };
+
+      // create our graph
+      var container = document.getElementById('graph');
+      graph = new vis.Graph3d(container, data[0], options);
+
+      //graph.setCameraPosition(0.4, undefined, undefined);
+    }
+	
+	function drawFlyVisualization() {
+	  var data1 = null;
+	  var graph = null;
+      // create the data table.
+      data1 = new vis.DataSet();
+
+      // create some shortcuts to math functions
+      var sin = Math.sin;
+      var cos = Math.cos;
+      var pi = Math.PI;
+
+      // create the animation data
+      var tmax = 2.0 * pi;
+      var tstep = tmax / 75;
+      var dotCount = 1;  // set this to 1, 2, 3, 4, ...
+      //for (var t = 0; t < tmax; t += tstep) {
+        //var tgroup = parseFloat(t.toFixed(2));
+        //var value = t;
+
+        // a dot in the center
+        //data1.add( {x:0,y:0,z:0,filter:tgroup,style:value});
+
+        // one or multiple dots moving around the center
+        //for (var dot = 0; dot < dotCount; dot++) {
+        //  var tdot = t + 2*pi * dot / dotCount;
+         // data1.add( {x:sin(tdot),y:cos(tdot),z:sin(tdot),filter:tgroup,style:5});
+        //  data1.add( {x:sin(tdot),y:-cos(tdot),z:sin(tdot + tmax*1/2),filter:tgroup,style:value});
+        //}
+		//}
+		for(var f = 0; f < x['nodes_real_for_each_step'].length; f+=1){
+			for(var d = 0; d < x['nodes_real_for_each_step'][f].length; d+=1){
+				data1.add({x:x['nodes_real_for_each_step'][f][d][0],y:x['nodes_real_for_each_step'][f][d][1],z:x['nodes_real_for_each_step'][f][d][2],filter:f,style:1});
+			}
+		}
+		for(var f = 0; f < x['nodes_estim_for_each_step'].length; f+=1){
+			for(var d = 0; d < x['nodes_estim_for_each_step'][f].length; d+=1){
+				data1.add({x:x['nodes_estim_for_each_step'][f][d][0],y:x['nodes_estim_for_each_step'][f][d][1],z:x['nodes_estim_for_each_step'][f][d][2],filter:f,style:2});
+			}
+		}
+		for(var f = 0; f < x['tuav'].length; f+=1){
+			for(var d = 0; d < x['tuav'][f].length; d+=1){
+				data1.add({x:x['tuav'][f][d][0],y:x['tuav'][f][d][1],z:x['tuav'][f][d][2],filter:d,style:3});
+			}
+		}
+		for(var f = 0; f < x['tuav'].length; f+=1){
+			for(var d = 1; d < x['tuav'][f].length; d+=1){
+				data1.add({x:x['tuav'][f][d][0],y:x['tuav'][f][d][1],z:x['tuav'][f][d][2],filter:d-1,style:4});
+			}
+		}
+
+      // specify options
+      var options = {
+        width:  '380px',
+        height: '380px',
+        style: 'dot-color',
+        showPerspective: true,
+        showGrid: true,
+        keepAspectRatio: true,
+        verticalRatio: 1.0,
+        animationInterval: 250, // milliseconds
+        animationPreload: false,
+        animationAutoStart: true,
+        legendLabel: 'color value',
+		cameraPosition: {
+          horizontal: -0.35,
+          vertical: 0.22,
+          distance: 1.8
+        }
+      };
+
+      // create our graph
+      var container = document.getElementById('flygr');
+      graph = new vis.Graph3d(container, data1, options);
+    }
+</script>

@@ -1,0 +1,78 @@
+ Volume in drive C is OS
+ Volume Serial Number is 7C4E-86D4
+
+ Directory of C:\wamp\www
+
+06/01/2017  06:08 PM    <DIR>          .
+06/01/2017  06:08 PM    <DIR>          ..
+05/25/2017  05:20 PM            18,827 Algorithm_3D.py
+05/25/2017  05:20 PM             7,596 Algorithm_3D.pyc
+05/25/2017  05:28 PM            17,204 Algorithm_3D_hybrid.py
+05/25/2017  05:28 PM             7,065 Algorithm_3D_hybrid.pyc
+05/29/2017  10:37 AM            17,706 Algorithm_3D_hybrid_circle.py
+05/29/2017  10:39 AM             7,066 Algorithm_3D_hybrid_circle.pyc
+03/21/2017  05:19 PM            20,166 Algorithm_3D_old_old.py
+05/01/2017  04:22 PM            21,932 Algorithm_3D_stat.py
+04/21/2017  12:21 PM             4,086 At_Node_3D.py
+04/30/2017  01:40 PM             2,119 At_Node_3D.pyc
+03/21/2017  05:19 PM             5,007 At_UAV_3D.py
+04/30/2017  01:40 PM             2,492 At_UAV_3D.pyc
+10/09/2016  04:51 PM               986 BeanSphere.py
+04/30/2017  01:40 PM             1,388 BeanSphere.pyc
+05/03/2017  07:59 PM             1,701 circle.py
+05/23/2017  06:25 PM             1,229 circle.pyc
+05/24/2017  05:28 PM               621 circle_hybrid.py
+05/24/2017  05:28 PM               695 circle_hybrid.pyc
+03/21/2017  05:19 PM               573 Dist_to_ss.py
+04/30/2017  02:34 PM               946 Dist_to_ss.pyc
+04/16/2017  06:40 PM             5,585 Doublescan.py
+05/23/2017  06:14 PM             3,469 Doublescan.pyc
+10/08/2016  12:26 AM             2,487 dsmisc.py
+04/30/2017  01:40 PM             3,174 dsmisc.pyc
+06/01/2017  04:15 PM               165 example.txt
+03/21/2017  05:19 PM           202,575 favicon.ico
+05/29/2017  12:38 PM             8,559 filters.py
+05/29/2017  12:38 PM             5,164 filters.pyc
+04/30/2017  01:20 PM    <DIR>          graphs3d
+05/03/2017  08:24 PM             3,423 g_shaped.py
+05/24/2017  04:11 PM             3,783 g_shaped.pyc
+04/30/2017  01:20 PM    <DIR>          js
+05/24/2017  06:01 PM             1,455 jstopython.php
+06/01/2017  06:08 PM                 0 list.txt
+05/04/2017  04:26 PM            41,338 localization.py
+05/04/2017  04:30 PM            22,058 localization.pyc
+03/21/2017  05:19 PM               698 Localization_3D.pyc
+05/01/2017  02:59 PM             3,875 localiz_utils.py
+05/01/2017  03:00 PM             5,005 localiz_utils.pyc
+06/01/2017  04:15 PM    <DIR>          logs
+04/30/2017  01:20 PM    <DIR>          multi
+04/21/2017  12:35 PM             9,121 multilat.py
+04/30/2017  01:40 PM             9,182 multilat.pyc
+05/24/2017  07:50 PM            14,423 multiusersim.html
+05/25/2017  05:13 PM            14,662 multiusersim2old.html
+05/03/2017  08:24 PM             1,001 next_location_and_updated_database.py
+05/24/2017  04:12 PM               634 next_location_and_updated_database.pyc
+03/21/2017  05:19 PM             3,391 print_3D.pyc
+04/10/2017  07:55 PM             4,441 proWiLAN_decawave_localization.py
+05/25/2017  05:18 PM             3,189 rwalk_3D.py
+05/25/2017  05:18 PM             1,797 rwalk_3D.pyc
+05/03/2017  08:24 PM             3,207 rwalk_3D_hybrid.py
+05/25/2017  05:28 PM             1,844 rwalk_3D_hybrid.pyc
+03/21/2017  05:19 PM             1,873 rwalk_3D_node.py
+04/30/2017  02:34 PM               932 rwalk_3D_node.pyc
+03/21/2017  05:19 PM             6,092 Setup.py
+04/30/2017  02:34 PM             2,625 Setup.pyc
+04/30/2017  01:20 PM    <DIR>          Simulation Results
+05/29/2017  03:40 PM            30,213 Simulation_updated.py
+05/03/2017  08:24 PM               912 square_location.py
+05/24/2017  04:12 PM               780 square_location.pyc
+03/21/2017  05:19 PM               254 ss_to_dist.py
+04/30/2017  01:40 PM               412 ss_to_dist.pyc
+05/03/2017  07:59 PM             3,342 triangle.py
+05/23/2017  06:57 PM             2,300 triangle.pyc
+04/30/2017  01:40 PM            20,876 utils.pyc
+05/02/2017  11:01 AM             4,024 video_utils.py
+05/02/2017  11:01 AM             3,863 video_utils.pyc
+04/30/2017  01:20 PM    <DIR>          __pycache__
+              63 File(s)        597,608 bytes
+               8 Dir(s)  10,663,837,696 bytes free
